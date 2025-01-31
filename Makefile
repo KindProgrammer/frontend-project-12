@@ -2,7 +2,7 @@ install:
 	npm ci && make -C frontend install
 
 build: 
-	npm ci && npm run build
+	make install && npm run build
 
 start:
 	npm run start
