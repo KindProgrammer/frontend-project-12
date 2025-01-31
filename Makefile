@@ -5,9 +5,6 @@ build:
 	npm run build
 
 start:
-	make start-backend
-
-start-backend:
 	npm run start
 
 start-frontend:
