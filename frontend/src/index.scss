@@ -1,0 +1,34 @@
+@use "bootstrap/scss/bootstrap";
+
+:root {
+  --border-radius: 6px;
+  --body-background-color: rgb(241, 241, 241);
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--body-background-color);
+}
+
+.form-container {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 10px 10px 15px 10px;
+  border-radius: var(--border-radius);
+}
+
+input {
+  margin-bottom: 10px;
+  border-radius: var(--border-radius);
+}
+
+button{
+  margin-bottom: 10px;
+}

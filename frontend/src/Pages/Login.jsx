@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
+import LoginForm from '../Components/LoginForm.jsx';
 
-const Example = () => {
-  // Пример хука для работы с состоянием
-  const [count, setCount] = useState(0);
-
+const Login = () => {
   return (
-    <div>
-      <p>Вы нажали {count} раз(а)</p>
-      <button onClick={() => setCount(count + 1)}>
-        Нажми меня
-      </button>
+    <div className='form-container'>
+      <h1 className='form-title'>Войти</h1>
+      <LoginForm />
+      <div className='form-footer'>
+        <span>Нет аккаунта?</span><a href="#">Регистрация</a>
+      </div>
     </div>
   );
-};
+}
 
-export default Example;
+export default Login;
