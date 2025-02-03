@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Button, Container, Row } from 'react-bootstrap';
+import axios from 'axios';
 
 const LoginForm = () => {
+  const submitForm = () => {
+
+  }
 
   return (
     <Formik
       initialValues={{ login: '', password: '' }}
       onSubmit={(values, { setSubmitting }) => {
         alert(JSON.stringify(values, null, 2));
+        
+        const { login, password } = values;
+        axios.post('/api/v1/login', {
+          login,
+          password
+        }).then((response) => {
+          console.log(response.data)
+        })
       }}
     >
     {({ isSubmitting }) => (
