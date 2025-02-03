@@ -1,25 +1,28 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Button, Container, Row } from 'react-bootstrap';
 import axios from 'axios';
 
 const LoginForm = () => {
-  const submitForm = () => {
-
-  }
+  const navigate = useNavigate();
 
   return (
     <Formik
       initialValues={{ login: '', password: '' }}
       onSubmit={(values, { setSubmitting }) => {
-        alert(JSON.stringify(values, null, 2));
-        
         const { login, password } = values;
         axios.post('/api/v1/login', {
-          login,
-          password
-        }).then((response) => {
-          console.log(response.data)
+          username: login,
+          password: password
+        })
+        .then((response) => {
+          const { token:jwtToken, username:login } = response.data;
+          console.log(jwtToken)
+          navigate('/')
+        })
+        .catch((error) => {
+          console.log(error)
         })
       }}
     >
