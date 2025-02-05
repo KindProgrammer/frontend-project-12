@@ -6,7 +6,7 @@ const Login = () => {
     <div className='form-container'>
       <h1 className='form-title'>Войти</h1>
       <LoginForm />
-      <div className='form-footer'>
+      <div className='form-footer mt-3'>
         <span>Нет аккаунта?</span><a href="#">Регистрация</a>
       </div>
     </div>

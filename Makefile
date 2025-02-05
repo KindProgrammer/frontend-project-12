@@ -7,11 +7,8 @@ build:
 start:
 	npm run start
 
-start-frontend:
-	cd frontend && npm start
-
-develop:
-	make start & make start-frontend
+start-with-frontend:
+	make start && cd frontend && npm start
 
 lint:
 	make -C frontend lint
