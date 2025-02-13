@@ -1,15 +1,17 @@
 import React from 'react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
 import { Button, Container, Row, Spinner, Form } from 'react-bootstrap';
 import axios from 'axios';
 import routes from '../routes';
+import AuthContext from '../context/AuthContext.jsx';
 
 const LoginForm = () => {
   const [authError, setAuthError] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
       inputRef.current.focus();
@@ -25,8 +27,8 @@ const LoginForm = () => {
         })
         .then((response) => {
           const { token:jwtToken, username:login } = response.data;
-          localStorage.setItem(login, {jwtToken: jwtToken});
-          navigate('/');
+          auth.logIn(jwtToken);
+          navigate(routes.mainPagePath);
         })
         .catch((error) => {
           setAuthError(true);
