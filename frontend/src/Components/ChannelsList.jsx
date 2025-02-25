@@ -8,7 +8,7 @@ const ChannelsList = () => {
   console.log("Error: " + JSON.stringify(error));
 
   return(
-      <div>
+      <div className='col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex'>
           <div>
             <div>
               <b>Каналы</b>
@@ -17,9 +17,9 @@ const ChannelsList = () => {
             <ul className="channels-container">
               { chats?.map((chat) => {
                   return(
-                    <li>
+                    <li key={chat.id}>
                       <button type="button">
-                        <span>#</span>
+                        <span className='me-1'>#</span>
                         {chat.name}
                       </button>
                     </li>
@@ -27,9 +27,6 @@ const ChannelsList = () => {
                 }) 
               }
             </ul>
-          </div>
-          <div>
-              тут будут сообщения
           </div>
       </div>
   );
