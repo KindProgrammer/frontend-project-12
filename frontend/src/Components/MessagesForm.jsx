@@ -11,7 +11,7 @@ const MessagesForm = (props) => {
         onSubmit: async (message) => {
           const newMessage = { message, channelId: props.channelId, username: props.username };
           await addMessage(newMessage).unwrap();
-          console.log('Сообщение отправлено');
+          console.log(`Сообщение "${message.message}" отправлено`);
         }
     });
 

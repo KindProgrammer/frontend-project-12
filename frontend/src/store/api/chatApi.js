@@ -4,6 +4,32 @@ import { io } from 'socket.io-client';
 
 const socket = io();
 
+const addSocketListener = async (
+  initSocket,
+  event,
+  cacheDataLoaded,
+  updateCachedData,
+  cacheEntryRemoved,
+) => {
+  try {
+    await cacheDataLoaded;
+    const handleEvent = (payload) => updateCachedData((draft) => {
+      switch (event) {
+        case 'newMessage':
+          draft.push(payload);
+          break;
+        default:
+          break;
+      }
+    });
+    initSocket.on(event, handleEvent);
+  } catch (e) {
+    console.error(e);
+  }
+  await cacheEntryRemoved;
+  initSocket.off(event);
+};
+
 export const chatApi = createApi({
   reducerPath: 'chatApi',
   tagTypes: ['Channel', 'Message'],
@@ -24,6 +50,18 @@ export const chatApi = createApi({
     }),
     getMessages: builder.query({
       query: () => 'messages',
+      async onCacheEntryAdded(
+        _,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+      ) {
+        addSocketListener(
+          socket,
+          'newMessage',
+          cacheDataLoaded,
+          updateCachedData,
+          cacheEntryRemoved,
+        );
+      },
       providesTags: ['Message', 'Channel'],
     }),
     addMessage: builder.mutation({
