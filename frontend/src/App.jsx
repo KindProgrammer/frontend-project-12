@@ -9,6 +9,7 @@ import NavigationMenu from './Components/NavigationMenu.jsx';
 
 function App() {
   return (
+    <div className="d-flex flex-column h-100">
     <BrowserRouter>
       <AuthProvider>
         <NavigationMenu />
@@ -19,6 +20,7 @@ function App() {
           </Routes>
       </AuthProvider>
     </BrowserRouter>
+    </div>
   );
 }
 
