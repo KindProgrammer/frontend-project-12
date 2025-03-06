@@ -4,13 +4,15 @@ import AuthContext from "./AuthContext.jsx";
 const AuthProvider = ({children}) => {
     const [ loggedIn, setLoggedIn ] = useState(!!localStorage.getItem('token'));
 
-    const logIn = (token) => {
-        localStorage.setItem('token' ,token);
+    const logIn = (token, username) => {
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
         setLoggedIn(true);
     }
 
     const logOut = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('username');
         setLoggedIn(false);
     }
 

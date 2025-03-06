@@ -27,7 +27,7 @@ const LoginForm = () => {
         })
         .then((response) => {
           const { token:jwtToken, username:login } = response.data;
-          auth.logIn(jwtToken);
+          auth.logIn(jwtToken, login);
           navigate(routes.mainPagePath);
         })
         .catch((error) => {

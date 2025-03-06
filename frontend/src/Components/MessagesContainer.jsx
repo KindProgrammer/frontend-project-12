@@ -8,6 +8,7 @@ const MessagesContainer = () => {
     const { data: messages, error, isLoading, refetch } = useGetMessagesQuery();
     const activeChannel = useSelector(activeChannelSelector);
     const count = messages ? messages.length : 0
+    const username = localStorage.getItem('username');
 
     return(
         <div className="col p-0 h-100">
@@ -28,7 +29,7 @@ const MessagesContainer = () => {
                 <div className="mt-auto px-5 py-3">
                     <MessagesForm 
                         channelId={activeChannel.id}
-                        username={"ToDo"}
+                        username={username}
                         isLoading={isLoading}
                     />
                 </div>
