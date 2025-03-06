@@ -2,10 +2,12 @@ import MessagesForm from "./MessagesForm.jsx";
 import { useGetMessagesQuery } from "../store/api/chatApi.js";
 import { useSelector } from 'react-redux';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice';
+import MessageItem from "./MessageItem.jsx";
 
 const MessagesContainer = () => {
     const { data: messages, error, isLoading, refetch } = useGetMessagesQuery();
     const activeChannel = useSelector(activeChannelSelector);
+    const count = messages ? messages.length : 0
 
     return(
         <div className="col p-0 h-100">
@@ -14,19 +16,20 @@ const MessagesContainer = () => {
                     <p className="m-0">
                         <b># general</b>
                     </p>
-                    <span className="text-muted">0 сообщений</span>
+                    <span className="text-muted">{count} сообщений</span>
                 </div>
-                {messages?.map((message) => {
-                    return(
-                        <div key={message.id}>
-                            {message.body}
-                        </div>
-                    );
-                })}
+                <div className="overflow-auto px-5 ">
+                    {messages?.map((message) => {
+                        return(
+                            <MessageItem key={message.id} username={message.username} message={message.message.message}/>
+                        );
+                    })}
+                </div>
                 <div className="mt-auto px-5 py-3">
                     <MessagesForm 
                         channelId={activeChannel.id}
                         username={"ToDo"}
+                        isLoading={isLoading}
                     />
                 </div>
             </div>
