@@ -18,6 +18,7 @@ const MessagesForm = (props) => {
         onSubmit: async (message) => {
             try {
                 const newMessage = { message, channelId: props.channelId, username: props.username };
+                // console.log(newMessage)
                 await addMessage(newMessage);
                 formik.values.message = '';
                 messageFormField.current.focus();
