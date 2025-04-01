@@ -1,10 +1,15 @@
 import Plus from '../assets/Plus.svg?react';
 import { useGetChannelsQuery } from "../store/api/chatApi.js";
+import { setActiveChannel } from '../store/slices/activeChannelSlice.js';
+import { activeChannelSelector } from '../store/slices/activeChannelSlice.js';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ChannelsList = () => {
   const { data: channels, error, isLoading, refetch } = useGetChannelsQuery();
-  console.log(channels);
-  console.log("Error: " + JSON.stringify(error));
+  const activeChannel = useSelector(activeChannelSelector);
+  const dispatch = useDispatch();
+
+  // console.log("Error: " + JSON.stringify(error));
 
   return(
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
@@ -15,14 +20,15 @@ const ChannelsList = () => {
         </button>
       </div>
       <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
-        {channels?.map((channel) => (
+        {channels?.map((channel) => {
+          return (
           <li className="nav-item w-100" key={channel.id}>
-            <button type="button" className='w-100 rounded-0 text-start btn'>
+            <button onClick={() => {dispatch(setActiveChannel(channel))}} type="button" className={`w-100 rounded-0 text-start btn ${activeChannel.id === channel.id ? 'btn-secondary' : ''}`}>
               <span className="me-1">#</span>
               {channel.name}
             </button>
           </li>
-        ))}
+        )})}
       </ul>
     </div>
   );
