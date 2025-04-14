@@ -4,10 +4,16 @@ import AuthContext from '../context/AuthContext.jsx';
 import routes from '../routes.js';
 // import ChannelsList from '../Components/ChannelsList.jsx';
 import ChatContainer from '../Components/ChatContainer.jsx';
+// import Modal from '../Components/Modals/Modal.jsx';
+import selectModal from '../Components/Modals/selectModal.js';
+import { typeSelector } from '../store/slices/modalSlice.js';
+import { useSelector } from 'react-redux';
 
 const MainPage = () => {
     const navigate = useNavigate();
     const { loggedIn } = useContext(AuthContext);
+    const modalType = useSelector(typeSelector);
+    const Modal = selectModal[modalType];
 
     useEffect(() => {
         if (!loggedIn) {
@@ -16,7 +22,11 @@ const MainPage = () => {
     }, []);
 
     return (
+        <>
             <ChatContainer />
+            {Modal ? <Modal /> : ''}
+        </>
+
     );
 }
 

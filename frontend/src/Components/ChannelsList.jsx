@@ -2,6 +2,7 @@ import Plus from '../assets/Plus.svg?react';
 import { useGetChannelsQuery } from "../store/api/chatApi.js";
 import { setActiveChannel } from '../store/slices/activeChannelSlice.js';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice.js';
+import { openModal } from '../store/slices/modalSlice.js'; 
 import { useSelector, useDispatch } from 'react-redux';
 
 const ChannelsList = () => {
@@ -9,13 +10,15 @@ const ChannelsList = () => {
   const activeChannel = useSelector(activeChannelSelector);
   const dispatch = useDispatch();
 
-  // console.log("Error: " + JSON.stringify(error));
+  const handleOpenModal = () => {
+    dispatch(openModal("addChannelModal"));
+  }
 
   return(
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
         <b>Каналы</b>
-        <button type="button" className="p-1 btn-sm btn btn-outline-primary d-flex align-items-center">
+        <button onClick={handleOpenModal} type="button" className="p-1 btn-sm btn btn-outline-primary d-flex align-items-center">
           <Plus />
         </button>
       </div>
