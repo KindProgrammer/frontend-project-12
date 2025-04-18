@@ -4,14 +4,19 @@ import { setActiveChannel } from '../store/slices/activeChannelSlice.js';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice.js';
 import { openModal } from '../store/slices/modalSlice.js'; 
 import { useSelector, useDispatch } from 'react-redux';
+import ChannelControlsButton from './ChannelControlsButton.jsx';
 
 const ChannelsList = () => {
-  const { data: channels, error, isLoading, refetch } = useGetChannelsQuery();
+  const { data: channels, error, isLoading } = useGetChannelsQuery();
   const activeChannel = useSelector(activeChannelSelector);
   const dispatch = useDispatch();
 
   const handleOpenModal = () => {
     dispatch(openModal("addChannelModal"));
+  }
+
+  const handleClick = (channel) => {
+    dispatch(setActiveChannel(channel));
   }
 
   return(
@@ -26,10 +31,15 @@ const ChannelsList = () => {
         {channels?.map((channel) => {
           return (
           <li className="nav-item w-100" key={channel.id}>
-            <button onClick={() => {dispatch(setActiveChannel(channel))}} type="button" className={`w-100 rounded-0 text-start btn ${activeChannel.id === channel.id ? 'btn-secondary' : ''}`}>
+            {/* <button 
+              onClick={() => {dispatch(setActiveChannel(channel))}} 
+              type="button" 
+              className={`w-100 rounded-0 text-start btn ${activeChannel.id === channel.id ? 'btn-secondary' : ''}`}
+            >
               <span className="me-1">#</span>
               {channel.name}
-            </button>
+            </button> */}
+            <ChannelControlsButton channel={channel} activeChannel={activeChannel} handleClick={handleClick} />
           </li>
         )})}
       </ul>

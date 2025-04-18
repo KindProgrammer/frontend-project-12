@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { closeModal, isOpenedSelector } from "../../store/slices/modalSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-const ModalLayout = ({title='Модалка', body='тело', cancelBtn='Отмена', actionBtn='Отправить', onHide=closeModal, onAction=()=>{}}) => {
+const ModalLayout = ({children, title='Модалка', body='тело', cancelBtn='Отмена', actionBtn='Отправить', onHide=closeModal, onAction=()=>{}}) => {
     const show = useSelector(isOpenedSelector);
     const dispatch = useDispatch();
 
@@ -18,13 +18,8 @@ const ModalLayout = ({title='Модалка', body='тело', cancelBtn='Отм
             </Modal.Header>
     
             <Modal.Body>
-              <p>{body}</p>
+              {children}
             </Modal.Body>
-    
-            <Modal.Footer>
-              <Button onClick={() => { onAction() }} variant="secondary">{cancelBtn}</Button>
-              <Button onClick={() => { onHide() }} variant="primary">{actionBtn}</Button>
-            </Modal.Footer>
           </Modal>
       );
 }
