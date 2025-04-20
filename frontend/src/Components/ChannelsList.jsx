@@ -12,7 +12,7 @@ const ChannelsList = () => {
   const dispatch = useDispatch();
 
   const handleOpenModal = () => {
-    dispatch(openModal("addChannelModal"));
+    dispatch(openModal({type: "addChannelModal"}));
   }
 
   const handleClick = (channel) => {
@@ -31,14 +31,6 @@ const ChannelsList = () => {
         {channels?.map((channel) => {
           return (
           <li className="nav-item w-100" key={channel.id}>
-            {/* <button 
-              onClick={() => {dispatch(setActiveChannel(channel))}} 
-              type="button" 
-              className={`w-100 rounded-0 text-start btn ${activeChannel.id === channel.id ? 'btn-secondary' : ''}`}
-            >
-              <span className="me-1">#</span>
-              {channel.name}
-            </button> */}
             <ChannelControlsButton channel={channel} activeChannel={activeChannel} handleClick={handleClick} />
           </li>
         )})}

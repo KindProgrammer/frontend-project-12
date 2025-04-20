@@ -1,4 +1,17 @@
+import { openModal } from "../store/slices/modalSlice";
+import { useDispatch } from "react-redux";
+
 const ChannelControlsButton = ({ channel, activeChannel, handleClick }) => {
+    const dispatch = useDispatch();
+
+    const handleDel = () => {
+        dispatch(openModal({type: 'deleteChannelModal', channel: channel}));
+    }
+
+    const handleEdit = () => {
+
+    }
+
     if (channel.removable) {
         return (
             <div className="dropdown d-flex">
@@ -19,8 +32,8 @@ const ChannelControlsButton = ({ channel, activeChannel, handleClick }) => {
                     >
                     </button>
                 <ul className="dropdown-menu" aria-labelledby="channelMenuButton">
-                    <li><a className="dropdown-item" href="#">Удалить</a></li>
-                    <li><a className="dropdown-item" href="#">Переименовать</a></li>
+                    <li><a className="dropdown-item" href="#" onClick={() => {handleDel()}}>Удалить</a></li>
+                    <li><a className="dropdown-item" href="#" onClick={() => {console.log('edit')}}>Переименовать</a></li>
                 </ul>
             </div>
         )

@@ -1,32 +1,46 @@
 import React from 'react';
 import { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Button, Container, Row, Spinner, Form } from 'react-bootstrap';
+import { Button, Container, Row, Spinner, Form, InputGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { setActiveChannel } from '../store/slices/activeChannelSlice';
 import { closeModal } from '../store/slices/modalSlice';
+import * as yup from 'yup';
 
-// import { useGetChannelsQuery } from '../store/api/chatApi';
+import { useGetChannelsQuery } from '../store/api/chatApi';
 import { useAddChannelMutation } from '../store/api/chatApi';
 
 const AddChannelForm = () => {
     const inputRef = useRef(null);
     const [ addChannel ] = useAddChannelMutation();
-    // const { isLoading } = useGetChannelsQuery();
+    const { data: channels } = useGetChannelsQuery();
+    const channelsNames = channels.map((item) => item.name);
     const dispatch = useDispatch();
+    const validationSchema = yup.object().shape({
+      channelName: yup
+      .string()
+      .required('Обязательное поле')
+      .min(3, 'От 3 до 20 символов')
+      .max(20, 'От 3 до 20 символов')
+      .trim()
+      .notOneOf(channelsNames, 'Имя должно быть уникальным'),
+    });
   
     useEffect(() => {
         inputRef.current.focus();
     }, []);
   
     const formik = useFormik({
+      validationSchema: validationSchema,
       initialValues: { channelName: '' },
+      validateOnBlur: false,
+      validateOnChange: false,
       onSubmit: async values => {
         const { channelName } = values;
         values.channelName = '';
         const token = localStorage.getItem('token');
         try {
-          const newChannel = { name: channelName, };
+          const newChannel = { name: channelName.trim(), };
           const { data: activeChannel } = await addChannel(newChannel);
           formik.values.channelName = '';
           dispatch(setActiveChannel(activeChannel));
@@ -42,23 +56,38 @@ const AddChannelForm = () => {
         <Container>
           <Form onSubmit={formik.handleSubmit}>
             <Row className='mb-3'>
-              <Form.Control 
-                ref={inputRef} 
-                type="text" 
-                name="channelName" 
-                id="channelName" 
-                onChange={formik.handleChange}
-                value={formik.values.channelName}
-              />
+              <Form.Group>
+                <InputGroup>
+                  <Form.Control 
+                    ref={inputRef} 
+                    type="text" 
+                    name="channelName" 
+                    id="channelName" 
+                    onChange={formik.handleChange}
+                    value={formik.values.channelName}
+                    className={`${formik.errors.channelName ? 'is-invalid' : ''}`}
+                  />
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {formik.errors?.channelName}
+                  </Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
             </Row>
-              {/* <p className='text-danger'>{authError ? 'Неверный логин или пароль' : '\u00A0'}</p> */}
-            <Row className='mt-3'>
-              <Button 
-                variant='primary' 
-                type="submit" 
-                disabled={formik.isSubmitting}>
-                {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Submit'}
-              </Button>
+            <Row>
+              <Form.Group className='d-flex justify-content-end gap-2'>
+                <Button 
+                  className='btn-secondary'
+                  onClick={() => {dispatch(closeModal())}}
+                >
+                  Отменить
+                </Button>
+                <Button
+                    variant='primary' 
+                    type="submit" 
+                    disabled={formik.isSubmitting}>
+                    {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Отправить'}
+                  </Button>
+              </Form.Group>
             </Row>
           </Form>
         </Container>
