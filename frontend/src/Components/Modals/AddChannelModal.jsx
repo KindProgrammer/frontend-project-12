@@ -3,7 +3,7 @@ import AddChannelForm from "../AddChanalForm";
 
 const AddChannelModal = () => {
     return(
-        <ModalLayout title='Добавить канал' cancelBtn='Отмена' actionBtn='Отправить' onAction={() => {}}>
+        <ModalLayout title='Добавить канал'>
             <AddChannelForm />
         </ModalLayout>
     );

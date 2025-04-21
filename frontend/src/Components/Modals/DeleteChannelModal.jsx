@@ -7,6 +7,7 @@ import { useRemoveChannelMutation } from '../../store/api/chatApi';
 import { setActiveChannel } from '../../store/slices/activeChannelSlice';
 import { activeChannelSelector } from '../../store/slices/activeChannelSlice';
 import defaultChannel from '../../defaultChannel';
+import { useGetMessagesQuery } from '../../store/api/chatApi';
 
 const DeleteChannelModal = () => {
     const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const DeleteChannelModal = () => {
         dispatch(closeModal());
     }
     return(
-        <ModalLayout title='Удалить канал' cancelBtn='Отмена' actionBtn='Удалить' onAction={() => {}}>
+        <ModalLayout title='Удалить канал'>
             <p className='lead'>Уверены?</p>
             <div className='d-flex justify-content-end gap-2'>
                 <Button className='btn-secondary' onClick={handleСancel}>Отменить</Button>

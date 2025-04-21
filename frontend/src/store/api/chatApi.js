@@ -63,6 +63,14 @@ export const chatApi = createApi({
       }),
       invalidatesTags: ['Channel', 'Message'],
     }),
+    editChannel: builder.mutation({
+      query: ({ id, editChannel }) => ({
+        url: `channels/${id}`,
+        method: 'PATCH',
+        body: editChannel,
+      }),
+      invalidatesTags: ['Channel', 'Message'],
+    }),
     getMessages: builder.query({
       query: () => 'messages',
       async onCacheEntryAdded(
@@ -94,6 +102,7 @@ export const {
   useGetChannelsQuery,
   useGetMessagesQuery,
   useRemoveChannelMutation,
+  useEditChannelMutation,
   useAddMessageMutation,
   useAddChannelMutation,
 } = chatApi;

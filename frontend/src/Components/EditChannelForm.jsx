@@ -6,20 +6,28 @@ import { useDispatch } from 'react-redux';
 import { setActiveChannel } from '../store/slices/activeChannelSlice';
 import { closeModal } from '../store/slices/modalSlice';
 import { editChannelvalidationSchema } from '../validation';
+import { channelSelector } from '../store/slices/modalSlice';
+import { activeChannelSelector } from '../store/slices/activeChannelSlice';
+import { useSelector } from 'react-redux';
 
 import { useGetChannelsQuery } from '../store/api/chatApi';
-import { useAddChannelMutation } from '../store/api/chatApi';
+import { useEditChannelMutation } from '../store/api/chatApi';
 
-const AddChannelForm = () => {
+const EditChannelForm = () => {
     const inputRef = useRef(null);
-    const [ addChannel ] = useAddChannelMutation();
+    const currentChannel = useSelector(channelSelector);
+    const activeChannel = useSelector(activeChannelSelector);
+    const [ editChannel ] = useEditChannelMutation();
     const { data: channels } = useGetChannelsQuery();
     const channelsNames = channels.map((item) => item.name);
     const dispatch = useDispatch();
     const validationSchema = editChannelvalidationSchema(channelsNames);
   
     useEffect(() => {
+        inputRef.current.value = currentChannel.name;
+        formik.values.channelName = currentChannel.name;
         inputRef.current.focus();
+        inputRef.current.select();
     }, []);
   
     const formik = useFormik({
@@ -31,12 +39,13 @@ const AddChannelForm = () => {
         const { channelName } = values;
         values.channelName = '';
         try {
-          const newChannel = { name: channelName.trim(), };
-          const { data: activeChannel } = await addChannel(newChannel);
-          formik.values.channelName = '';
-          dispatch(setActiveChannel(activeChannel));
-          dispatch(closeModal());
-
+            const newChannel = { id: currentChannel.id, editChannel: { ...currentChannel, name: channelName }, };
+            const { data: editedСhannel } = await editChannel(newChannel);
+            formik.values.channelName = '';
+            if (activeChannel.id === editedСhannel.id) {
+                dispatch(setActiveChannel(editedСhannel));
+            }
+            dispatch(closeModal());
         } catch (error) {
             console.log(error);
         }
@@ -85,4 +94,4 @@ const AddChannelForm = () => {
     );
 }
 
-export default AddChannelForm;
+export default EditChannelForm;

@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { closeModal, isOpenedSelector } from "../../store/slices/modalSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-const ModalLayout = ({children, title='Модалка', body='тело', cancelBtn='Отмена', actionBtn='Отправить', onHide=closeModal, onAction=()=>{}}) => {
+const ModalLayout = ({children, title='Модалка', onHide=closeModal}) => {
     const show = useSelector(isOpenedSelector);
     const dispatch = useDispatch();
 
