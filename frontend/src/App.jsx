@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import Login from './Pages/Login.jsx';
 import NotFound from './Pages/NotFound.jsx';
@@ -11,6 +12,7 @@ function App() {
   return (
     <div className="d-flex flex-column h-100">
     <BrowserRouter>
+      <ToastContainer />
       <AuthProvider>
         <NavigationMenu />
         <Routes>

@@ -7,7 +7,7 @@ import { useRemoveChannelMutation } from '../../store/api/chatApi';
 import { setActiveChannel } from '../../store/slices/activeChannelSlice';
 import { activeChannelSelector } from '../../store/slices/activeChannelSlice';
 import defaultChannel from '../../defaultChannel';
-import { useGetMessagesQuery } from '../../store/api/chatApi';
+import { toast } from 'react-toastify';
 
 const DeleteChannelModal = () => {
     const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const DeleteChannelModal = () => {
         }
         await removeChannel(currentChannel);
         dispatch(closeModal());
+        toast.success("Канал удален");
     }
     return(
         <ModalLayout title='Удалить канал'>

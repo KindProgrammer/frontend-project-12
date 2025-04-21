@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setActiveChannel } from '../store/slices/activeChannelSlice';
 import { closeModal } from '../store/slices/modalSlice';
 import { editChannelvalidationSchema } from '../validation';
+import { toast } from 'react-toastify';
 
 import { useGetChannelsQuery } from '../store/api/chatApi';
 import { useAddChannelMutation } from '../store/api/chatApi';
@@ -36,7 +37,7 @@ const AddChannelForm = () => {
           formik.values.channelName = '';
           dispatch(setActiveChannel(activeChannel));
           dispatch(closeModal());
-
+          toast.success("Канал создан");
         } catch (error) {
             console.log(error);
         }

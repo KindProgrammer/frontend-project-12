@@ -9,6 +9,7 @@ import { editChannelvalidationSchema } from '../validation';
 import { channelSelector } from '../store/slices/modalSlice';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { useGetChannelsQuery } from '../store/api/chatApi';
 import { useEditChannelMutation } from '../store/api/chatApi';
@@ -46,6 +47,7 @@ const EditChannelForm = () => {
                 dispatch(setActiveChannel(editedСhannel));
             }
             dispatch(closeModal());
+            toast.success("Канал переименован");
         } catch (error) {
             console.log(error);
         }
