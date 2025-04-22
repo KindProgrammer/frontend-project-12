@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginForm from '../Components/LoginForm.jsx';
+import routes from '../routes.js';
 
 const Login = () => {
   return (
@@ -8,7 +9,7 @@ const Login = () => {
         <h1 className='form-title'>Войти</h1>
         <LoginForm />
         <div className='form-footer mt-3'>
-          <span>Нет аккаунта?</span><a href="#">Регистрация</a>
+          <span>Нет аккаунта?</span><a href={routes.registrationPagePath}>Регистрация</a>
         </div>
       </div>
     </div>
