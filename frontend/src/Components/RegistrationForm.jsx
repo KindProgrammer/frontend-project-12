@@ -66,7 +66,7 @@ const RegistrationForm = () => {
                             autoComplete="true"
                             />
                             <Form.Control.Feedback type="invalid" tooltip>
-                                {JSON.stringify(formik.errors)}
+                                {formik.errors?.login}
                             </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
@@ -110,12 +110,14 @@ const RegistrationForm = () => {
                     </Form.Group>
                 </Row>
                 <Row className='mt-3'>
-                    <Button 
-                    variant='primary' 
-                    type="submit" 
-                    disabled={formik.isSubmitting}>
-                    {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Зарегистрироваться'}
-                    </Button>
+                    <Form.Group>
+                        <Button
+                        variant='primary' 
+                        type="submit" 
+                        disabled={formik.isSubmitting}>
+                        {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Отправить'}
+                        </Button>
+                    </Form.Group>
                 </Row>
             </Form>
         </Container>
