@@ -12,14 +12,22 @@ export const editChannelvalidationSchema = (channelsNames) => {
       });
 } 
 
-export const registrationValidationSchema = (channelsNames) => {
+export const registrationValidationSchema = (logins) => {
     return yup.object().shape({
-        channelName: yup
+        login: yup
         .string()
         .required('Обязательное поле')
         .min(3, 'От 3 до 20 символов')
         .max(20, 'От 3 до 20 символов')
         .trim()
-        .notOneOf(channelsNames, 'Имя должно быть уникальным'),
+        .notOneOf(logins, 'Такой пользователь уже существует'),
+        password: yup
+        .string()
+        .min(6, 'Не менее 6 символов')
+        .required('Обязательное поле'),
+        confirmPassword: yup
+        .string()
+        .oneOf([yup.ref('password')], 'Пароли должны совпадать')
+        .required('Обязательное поле')
       });
 } 
