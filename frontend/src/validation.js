@@ -12,15 +12,14 @@ export const editChannelvalidationSchema = (channelsNames) => {
       });
 } 
 
-export const registrationValidationSchema = (logins) => {
+export const registrationValidationSchema = () => {
     return yup.object().shape({
         login: yup
         .string()
         .required('Обязательное поле')
         .min(3, 'От 3 до 20 символов')
         .max(20, 'От 3 до 20 символов')
-        .trim()
-        .notOneOf(logins, 'Такой пользователь уже существует'),
+        .trim(),
         password: yup
         .string()
         .min(6, 'Не менее 6 символов')

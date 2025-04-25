@@ -17,7 +17,7 @@ const NavigationMenu = () => {
     return(
         <Navbar expand="lg" className="bg-body-tertiary shadow-sm">
             <Container>
-            <Navbar.Brand href={routes.mainPagePath}>LoGo</Navbar.Brand>
+            <Navbar.Brand href={routes.mainPagePath}>Hexlet Chat</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
