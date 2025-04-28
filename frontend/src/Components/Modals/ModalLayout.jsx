@@ -1,5 +1,3 @@
-import Cross from "../../assets/cross.svg?react";
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { closeModal, isOpenedSelector } from "../../store/slices/modalSlice";
 import { useSelector, useDispatch } from "react-redux";

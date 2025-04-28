@@ -7,6 +7,7 @@ import { setActiveChannel } from '../store/slices/activeChannelSlice';
 import { closeModal } from '../store/slices/modalSlice';
 import { editChannelvalidationSchema } from '../validation';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 import { useGetChannelsQuery } from '../store/api/chatApi';
 import { useAddChannelMutation } from '../store/api/chatApi';
@@ -17,7 +18,8 @@ const AddChannelForm = () => {
     const { data: channels } = useGetChannelsQuery();
     const channelsNames = channels.map((item) => item.name);
     const dispatch = useDispatch();
-    const validationSchema = editChannelvalidationSchema(channelsNames);
+    const { t } = useTranslation();
+    const validationSchema = editChannelvalidationSchema(channelsNames, t);
   
     useEffect(() => {
         inputRef.current.focus();
@@ -37,8 +39,9 @@ const AddChannelForm = () => {
           formik.values.channelName = '';
           dispatch(setActiveChannel(activeChannel));
           dispatch(closeModal());
-          toast.success("Канал создан");
+          toast.success(t('toasts.success.channel.add'));
         } catch (error) {
+            toast.error(t('toasts.error.connectionError')); //TODO отловить ошибку 500
             console.log(error);
         }
       },
@@ -71,13 +74,13 @@ const AddChannelForm = () => {
                   className='btn-secondary'
                   onClick={() => {dispatch(closeModal())}}
                 >
-                  Отменить
+                  {t('addChanalForm.cancelBtn')}
                 </Button>
                 <Button
                     variant='primary' 
                     type="submit" 
                     disabled={formik.isSubmitting}>
-                    {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Отправить'}
+                    {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : t('addChanalForm.submitBtn')}
                   </Button>
               </Form.Group>
             </Row>

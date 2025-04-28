@@ -3,6 +3,7 @@ import { useGetMessagesQuery } from "../store/api/chatApi.js";
 import { useSelector, useDispatch } from 'react-redux';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice';
 import MessageItem from "./MessageItem.jsx";
+import { useTranslation } from 'react-i18next';
 
 const MessagesContainer = () => {
     const { data: messages, error, isLoading, refetch } = useGetMessagesQuery();
@@ -10,6 +11,7 @@ const MessagesContainer = () => {
     const currentСhannelMessages = messages?.filter((message) => message.channelId === activeChannel.id);
     const count = currentСhannelMessages ? currentСhannelMessages.length : 0
     const username = localStorage.getItem('username');
+    const { t } = useTranslation();
 
     return(
         <div className="col p-0 h-100">
@@ -18,7 +20,7 @@ const MessagesContainer = () => {
                     <p className="m-0">
                         <b># {activeChannel.name}</b>
                     </p>
-                    <span className="text-muted">{count} сообщений</span>
+                    <span className="text-muted">{t('messagesContainer.messages.messages', { count: count })}</span>
                 </div>
                 <div className="overflow-auto px-5 ">
                     {currentСhannelMessages?.map((message) => {

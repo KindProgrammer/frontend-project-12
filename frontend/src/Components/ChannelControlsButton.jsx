@@ -1,8 +1,10 @@
 import { openModal  } from "../store/slices/modalSlice";
 import { useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 const ChannelControlsButton = ({ channel, activeChannel, handleClick }) => {
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const handleDel = () => {
         dispatch(openModal({type: 'deleteChannelModal', channel: channel}));
@@ -32,8 +34,8 @@ const ChannelControlsButton = ({ channel, activeChannel, handleClick }) => {
                     >
                     </button>
                 <ul className="dropdown-menu" aria-labelledby="channelMenuButton">
-                    <li><a className="dropdown-item" href="#" onClick={() => {handleDel()}}>Удалить</a></li>
-                    <li><a className="dropdown-item" href="#" onClick={() => {handleEdit()}}>Переименовать</a></li>
+                    <li><a className="dropdown-item" href="#" onClick={() => {handleDel()}}>{t('channelControlsButton.deleteBtn')}</a></li>
+                    <li><a className="dropdown-item" href="#" onClick={() => {handleEdit()}}>{t('channelControlsButton.renameBtn')}</a></li>
                 </ul>
             </div>
         )

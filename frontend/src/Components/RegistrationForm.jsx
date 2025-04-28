@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
 import { registrationValidationSchema } from '../validation.js';
 import AuthContext from '../context/AuthContext.jsx';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const RegistrationForm = () => {
     const inputRef = useRef(null);
@@ -13,15 +15,16 @@ const RegistrationForm = () => {
     const [ isError, setIsError ] = useState(false);
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
+    const { t } = useTranslation();
 
-    const kek = registrationValidationSchema();
+    const validationSchema = registrationValidationSchema(t);
 
     useEffect(() => {
         inputRef.current.focus();
     }, []);
 
     const formik = useFormik({
-        validationSchema: kek,
+        validationSchema: validationSchema,
         validateOnBlur: false,
         validateOnChange: false,
         initialValues: {
@@ -34,6 +37,7 @@ const RegistrationForm = () => {
             try {
                 const response = await addNewUser({ username: login, password: password });
                 if (response?.error?.status === 409) {
+                    toast.error(t('toasts.error.commonError'));
                     setIsError(true);
                     return;
                 };
@@ -42,11 +46,14 @@ const RegistrationForm = () => {
                 setIsError(false);
                 navigate(routes.mainPagePath);
             } catch (error) {
+                setIsError(false);
                 if ( error.isAxiosError && error.response.status === 401) {
                   console.log('error 401!');
+                  toast.error(t('toasts.error.authError'));
                   inputRef.current.select();
                 } else {
-                  throw error;
+                    toast.error(t('toasts.error.commonError'));
+                    throw error;
                 }
             }
         }
@@ -57,27 +64,27 @@ const RegistrationForm = () => {
             <Form onSubmit={formik.handleSubmit}>
                 <Row className='mb-3'>
                     <Form.Group>
-                        <Form.Label className="form-label" htmlFor="login">Имя пользователя</Form.Label>
+                        <Form.Label className="form-label" htmlFor="password">{t('registrationForm.password')}</Form.Label>
                         <InputGroup>
                             <Form.Control 
                                 ref={inputRef} 
                                 type="text" 
                                 name="login" 
-                                id="login" 
+                                id="login"
                                 onChange={formik.handleChange}
                                 value={formik.values.login}
-                                className={`${isError ? 'is-invalid' : ''}`}
+                                className={`${formik.errors.login ? 'is-invalid' : ''}`}
                                 autoComplete="true"
                             />
                             <Form.Control.Feedback type="invalid" tooltip>
-                                {isError ? 'Такой пользователь уже существует' : ''}
+                                {formik.errors?.login}
                             </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
                 </Row>
                 <Row className='mb-3'>
                     <Form.Group>
-                        <Form.Label className="form-label" htmlFor="password">Пароль</Form.Label>
+                        <Form.Label className="form-label" htmlFor="password">{t('registrationForm.password')}</Form.Label>
                         <InputGroup>
                             <Form.Control 
                                 ref={inputRef} 
@@ -97,7 +104,7 @@ const RegistrationForm = () => {
                 </Row>
                 <Row className='mb-3'>
                     <Form.Group>
-                        <Form.Label className="form-label" htmlFor="password">Пароль</Form.Label>
+                        <Form.Label className="form-label" htmlFor="password">{t('registrationForm.confirmPassword')}</Form.Label>
                         <InputGroup>
                             <Form.Control 
                                 ref={inputRef} 
@@ -115,13 +122,14 @@ const RegistrationForm = () => {
                         </InputGroup>
                     </Form.Group>
                 </Row>
+                <p className='text-danger'>{isError ? t('registrationForm.errors.userExists') : ''}</p>
                 <Row className='mt-3'>
                     <Form.Group>
                         <Button
                         variant='primary' 
                         type="submit" 
                         disabled={formik.isSubmitting}>
-                        {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Отправить'}
+                        {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : t('registrationForm.submitBtn')}
                         </Button>
                     </Form.Group>
                 </Row>

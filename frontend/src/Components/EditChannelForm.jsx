@@ -10,6 +10,7 @@ import { channelSelector } from '../store/slices/modalSlice';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 import { useGetChannelsQuery } from '../store/api/chatApi';
 import { useEditChannelMutation } from '../store/api/chatApi';
@@ -22,7 +23,8 @@ const EditChannelForm = () => {
     const { data: channels } = useGetChannelsQuery();
     const channelsNames = channels.map((item) => item.name);
     const dispatch = useDispatch();
-    const validationSchema = editChannelvalidationSchema(channelsNames);
+    const { t } = useTranslation();
+    const validationSchema = editChannelvalidationSchema(channelsNames, t);
   
     useEffect(() => {
         inputRef.current.value = currentChannel.name;
@@ -47,8 +49,9 @@ const EditChannelForm = () => {
                 dispatch(setActiveChannel(editedСhannel));
             }
             dispatch(closeModal());
-            toast.success("Канал переименован");
+            toast.success(t('toasts.success.channel.rename'));
         } catch (error) {
+            toast.error(t('toasts.error.commonError'));
             console.log(error);
         }
       },
@@ -81,13 +84,13 @@ const EditChannelForm = () => {
                   className='btn-secondary'
                   onClick={() => {dispatch(closeModal())}}
                 >
-                  Отменить
+                  {t('editChannelForm.cancelBtn')}
                 </Button>
                 <Button
                     variant='primary' 
                     type="submit" 
                     disabled={formik.isSubmitting}>
-                    {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Отправить'}
+                    {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : t('editChannelForm.submitBtn')}
                   </Button>
               </Form.Group>
             </Row>
