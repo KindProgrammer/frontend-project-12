@@ -8,6 +8,7 @@ import { closeModal } from '../store/slices/modalSlice';
 import { editChannelvalidationSchema } from '../validation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 
 import { useGetChannelsQuery } from '../store/api/chatApi';
 import { useAddChannelMutation } from '../store/api/chatApi';
@@ -32,16 +33,18 @@ const AddChannelForm = () => {
       validateOnChange: false,
       onSubmit: async values => {
         const { channelName } = values;
-        values.channelName = '';
         try {
-          const newChannel = { name: channelName.trim(), };
-          const { data: activeChannel } = await addChannel(newChannel);
+          const newChannelName = filter.clean(channelName.trim())
+          if (channelsNames.includes(newChannelName)) {
+            throw new Error('Такое имя уже существует!');
+          }
+          const newChannel = await addChannel({ name: newChannelName, });
           formik.values.channelName = '';
-          dispatch(setActiveChannel(activeChannel));
+          dispatch(setActiveChannel(newChannel.data));
           dispatch(closeModal());
           toast.success(t('toasts.success.channel.add'));
         } catch (error) {
-            toast.error(t('toasts.error.connectionError')); //TODO отловить ошибку 500
+            toast.error(t('toasts.error.commonError'));
             console.log(error);
         }
       },

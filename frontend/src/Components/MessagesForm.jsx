@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { useAddMessageMutation, useGetMessagesQuery } from '../store/api/chatApi';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 
 const MessagesForm = (props) => {
     const [ addMessage ] = useAddMessageMutation();
@@ -19,6 +20,7 @@ const MessagesForm = (props) => {
         },
         onSubmit: async (message) => {
             try {
+                message.message = filter.clean(message.message);
                 const newMessage = { message, channelId: props.channelId, username: props.username };
                 await addMessage(newMessage);
                 formik.values.message = '';
