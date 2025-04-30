@@ -22,7 +22,7 @@ export const registrationValidationSchema = (t) => {
       .trim(),
     password: yup
       .string()
-      .min(6, t('validation.registration.min'))
+      .min(6, t('validation.registration.minPass'))
       .required(t('validation.registration.required')),
     confirmPassword: yup
       .string()
