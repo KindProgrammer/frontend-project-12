@@ -1,5 +1,4 @@
 import React from 'react';
-import Plus from '../assets/Plus.svg?react';
 import { useGetChannelsQuery } from "../store/api/chatApi.js";
 import { setActiveChannel } from '../store/slices/activeChannelSlice.js';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice.js';
@@ -27,7 +26,7 @@ const ChannelsList = () => {
       <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
         <b>{t('channelsList.channels')}</b>
         <button onClick={handleOpenModal} type="button" className="p-1 btn-sm btn btn-outline-primary d-flex align-items-center">
-          <Plus />
+          +
         </button>
       </div>
       <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
