@@ -6,6 +6,7 @@ import filter from 'leo-profanity';
 import { Provider } from 'react-redux';
 import store from './store/store.js';
 import App from './App.jsx';
+import { Provider as RollbarProvider , ErrorBoundary } from '@rollbar/react';
 
 const init = async () => {
   filter.add(filter.getDictionary('ru'));
@@ -21,12 +22,21 @@ const init = async () => {
       },
     });
 
+  const rollbarConfig = {
+    accessToken: import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN,
+    environment: 'production',
+  };
+
   return (
-    <Provider store={store}>
-      <I18nextProvider i18n={i18n}>
-        <App />
-      </I18nextProvider>
-    </Provider>
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
+        <Provider store={store}>
+          <I18nextProvider i18n={i18n}>
+            <App />
+          </I18nextProvider>
+        </Provider>
+      </ErrorBoundary>
+    </RollbarProvider>
   );
 };
 
