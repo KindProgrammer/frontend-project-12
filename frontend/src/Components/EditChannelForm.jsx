@@ -62,6 +62,7 @@ const EditChannelForm = () => {
           <Form onSubmit={formik.handleSubmit}>
             <Row className='mb-3'>
               <Form.Group>
+                <Form.Label className="visually-hidden" htmlFor="channelName">{t('editChannelForm.channelName')}</Form.Label>
                 <InputGroup>
                   <Form.Control 
                     ref={inputRef} 

@@ -51,6 +51,7 @@ export default {
     title: 'Добавить канал',
   },
   addChanalForm: {
+    channelName: 'Имя канала',
     submitBtn: 'Отправить',
     cancelBtn: 'Отменить',
   },
@@ -68,6 +69,7 @@ export default {
     title: 'Переименовать канал',
   },
   editChannelForm: {
+    channelName: 'Имя канала',
     cancelBtn: 'Отменить',
     submitBtn: 'Отправить',
   },
