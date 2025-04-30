@@ -1,3 +1,4 @@
+import React from 'react';
 import ChannelsList from './ChannelsList.jsx';
 import MessagesContainer from './MessagesContainer.jsx';
  

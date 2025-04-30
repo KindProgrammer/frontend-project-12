@@ -1,12 +1,13 @@
+import React from "react";
 import MessagesForm from "./MessagesForm.jsx";
 import { useGetMessagesQuery } from "../store/api/chatApi.js";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice';
 import MessageItem from "./MessageItem.jsx";
 import { useTranslation } from 'react-i18next';
 
 const MessagesContainer = () => {
-    const { data: messages, error, isLoading, refetch } = useGetMessagesQuery();
+    const { data: messages, isLoading } = useGetMessagesQuery();
     const activeChannel = useSelector(activeChannelSelector);
     const currentСhannelMessages = messages?.filter((message) => message.channelId === activeChannel.id);
     const count = currentСhannelMessages ? currentСhannelMessages.length : 0

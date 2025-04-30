@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Container, Row, Spinner, Form, InputGroup } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useRef, useEffect, useState, useContext } from 'react';
@@ -64,7 +65,7 @@ const RegistrationForm = () => {
             <Form onSubmit={formik.handleSubmit}>
                 <Row className='mb-3'>
                     <Form.Group>
-                        <Form.Label className="form-label" htmlFor="password">{t('registrationForm.userName')}</Form.Label>
+                        <Form.Label className="form-label" htmlFor="login">{t('registrationForm.userName')}</Form.Label>
                         <InputGroup>
                             <Form.Control 
                                 ref={inputRef} 
@@ -103,7 +104,7 @@ const RegistrationForm = () => {
                 </Row>
                 <Row className='mb-3'>
                     <Form.Group>
-                        <Form.Label className="form-label" htmlFor="password">{t('registrationForm.confirmPassword')}</Form.Label>
+                        <Form.Label className="form-label" htmlFor="confirmPassword">{t('registrationForm.confirmPassword')}</Form.Label>
                         <InputGroup>
                             <Form.Control 
                                 type="password" 

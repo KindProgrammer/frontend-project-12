@@ -1,3 +1,4 @@
+import React from "react";
 import { openModal  } from "../store/slices/modalSlice";
 import { useDispatch } from "react-redux";
 import { useTranslation } from 'react-i18next';

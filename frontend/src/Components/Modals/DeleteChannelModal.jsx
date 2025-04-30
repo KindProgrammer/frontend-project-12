@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button } from 'react-bootstrap';
 import ModalLayout from "./ModalLayout";
 import { closeModal } from '../../store/slices/modalSlice';

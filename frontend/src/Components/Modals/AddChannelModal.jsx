@@ -1,3 +1,4 @@
+import React from "react";
 import ModalLayout from "./ModalLayout";
 import AddChannelForm from "../AddChanalForm";
 import { useTranslation } from 'react-i18next';

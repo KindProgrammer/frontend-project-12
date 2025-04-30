@@ -1,4 +1,4 @@
-// файл src/i18next.js
+import React from 'react';
 import i18next from 'i18next';
 import { initReactI18next, I18nextProvider } from 'react-i18next';
 import resources from './language/index.js';

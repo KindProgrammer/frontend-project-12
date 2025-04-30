@@ -1,3 +1,4 @@
+import React from 'react';
 import Plus from '../assets/Plus.svg?react';
 import { useGetChannelsQuery } from "../store/api/chatApi.js";
 import { setActiveChannel } from '../store/slices/activeChannelSlice.js';
@@ -8,7 +9,7 @@ import ChannelControlsButton from './ChannelControlsButton.jsx';
 import { useTranslation } from 'react-i18next';
 
 const ChannelsList = () => {
-  const { data: channels, error, isLoading } = useGetChannelsQuery();
+  const { data: channels } = useGetChannelsQuery();
   const activeChannel = useSelector(activeChannelSelector);
   const dispatch = useDispatch();
   const { t } = useTranslation();
