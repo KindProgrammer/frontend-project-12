@@ -58,6 +58,7 @@ export default {
   channelControlsButton: {
     deleteBtn: 'Удалить',
     renameBtn: 'Переименовать',
+    text: 'Управление каналом',
   },
   deleteChannelModal: {
     title: 'Удалить канал',

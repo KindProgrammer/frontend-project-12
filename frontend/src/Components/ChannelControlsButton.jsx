@@ -33,6 +33,7 @@ const ChannelControlsButton = ({ channel, activeChannel, handleClick }) => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                     >
+                        <span className="visually-hidden">{t('channelControlsButton.text')}</span>
                     </button>
                 <ul className="dropdown-menu" aria-labelledby="channelMenuButton">
                     <li><a className="dropdown-item" href="#" onClick={() => {handleDel()}}>{t('channelControlsButton.deleteBtn')}</a></li>
