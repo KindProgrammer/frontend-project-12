@@ -87,7 +87,6 @@ const RegistrationForm = () => {
                         <Form.Label className="form-label" htmlFor="password">{t('registrationForm.password')}</Form.Label>
                         <InputGroup>
                             <Form.Control 
-                                ref={inputRef} 
                                 type="password" 
                                 name="password" 
                                 id="password" 
@@ -107,7 +106,6 @@ const RegistrationForm = () => {
                         <Form.Label className="form-label" htmlFor="password">{t('registrationForm.confirmPassword')}</Form.Label>
                         <InputGroup>
                             <Form.Control 
-                                ref={inputRef} 
                                 type="password" 
                                 name="confirmPassword" 
                                 id="confirmPassword" 
