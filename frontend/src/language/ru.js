@@ -17,7 +17,7 @@ export default {
     passLabel: 'Пароль',
     submitBtn: 'Войти',
     errors: {
-      illegalPassOrLogin: 'Неверный логин или пароль',
+      illegalPassOrLogin: 'Неверные имя пользователя или пароль',
     },
   },
   registrationPage: {
