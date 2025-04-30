@@ -22,21 +22,21 @@ const init = async () => {
       },
     });
 
-  const rollbarConfig = {
-    accessToken: import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN,
-    environment: 'production',
-  };
+  // const rollbarConfig = {
+  //   accessToken: import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN,
+  //   environment: 'production',
+  // };
 
   return (
-    <RollbarProvider config={rollbarConfig}>
-      <ErrorBoundary>
+    // <RollbarProvider config={rollbarConfig}>
+    //   <ErrorBoundary>
         <Provider store={store}>
           <I18nextProvider i18n={i18n}>
             <App />
           </I18nextProvider>
         </Provider>
-      </ErrorBoundary>
-    </RollbarProvider>
+    //   </ErrorBoundary>
+    // </RollbarProvider>
   );
 };
 
