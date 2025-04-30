@@ -64,7 +64,7 @@ const RegistrationForm = () => {
             <Form onSubmit={formik.handleSubmit}>
                 <Row className='mb-3'>
                     <Form.Group>
-                        <Form.Label className="form-label" htmlFor="password">{t('registrationForm.password')}</Form.Label>
+                        <Form.Label className="form-label" htmlFor="password">{t('registrationForm.userName')}</Form.Label>
                         <InputGroup>
                             <Form.Control 
                                 ref={inputRef} 
