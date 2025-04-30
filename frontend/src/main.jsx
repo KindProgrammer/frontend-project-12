@@ -3,8 +3,12 @@ import 'bootstrap';
 import './index.scss';
 import init from './init.jsx';
 
-const vdom = await init();
+const app = async () => {
+  const vdom = await init();
 
-createRoot(document.getElementById('root')).render(
-  vdom,
-)
+  createRoot(document.getElementById('root')).render(
+    vdom,
+  )
+};
+
+app();
